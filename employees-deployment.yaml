@@ -1,0 +1,30 @@
+apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2
+kind: Deployment
+metadata:
+  name: employees
+  labels:
+    app: employees
+spec:
+  selector:
+    matchLabels:
+      app: employees
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: employees
+    spec:
+      containers:
+        - name: employees
+          image: employees:latest
+          imagePullPolicy: Never
+          ports:
+          - containerPort: 8080
+            name: http
+          - containerPort: 8010
+            name: metrics
+          resources:
+            requests:
+              cpu: 100m
+              memory: 100Mi
+

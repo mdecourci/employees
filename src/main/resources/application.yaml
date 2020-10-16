@@ -1,0 +1,43 @@
+#spring.data.mongodb.uri=mongodb://badger.local:27017,badger.local:27018,badger.local:27019,badger.local:27020/test?replicaSet=rs0
+server.port: 8080
+spring:
+  main:
+    allow-bean-definition-overriding: true
+  data:
+    mongodb:
+      database: test
+      uri: mongodb://localhost:27017/test
+      embedded: true
+  jpa:
+    database: POSTGRESQL
+    show-sql: true
+#    generate-ddl: true
+    hibernate:
+#      ddl-auto: create-drop
+      ddl-auto: update
+    properties:
+      hibernate:
+        jdbc:
+          lob:
+            non_contextual_creation=true:
+
+  datasource:
+    url: jdbc:postgresql://postgres-service/company
+    username: postgres
+    password: Password1
+    platform: postgres
+
+#  datasource:
+#    url: jdbc:postgresql://localhost:5432/company
+#    username: postgres
+#    password: Password1
+#    platform: postgres
+
+application:
+  customer: Micro
+  appname: storage
+  market:
+    url: https://fxmarketapi.com/apilive?api_key=8mGqJrfa2CxVr3fZ1aMy
+
+product:
+  config: config/product.txt

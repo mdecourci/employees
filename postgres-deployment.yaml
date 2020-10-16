@@ -1,0 +1,36 @@
+apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2
+kind: Deployment
+metadata:
+  name: postgresdb
+spec:
+  selector:
+    matchLabels:
+      app: postgresdb
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: postgresdb
+    spec:
+      containers:
+        - name: postgres
+          image: postgres:13
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 5432
+              name: dbport
+          envFrom:
+             - configMapRef:
+                 name: postgres-config
+          volumeMounts:
+            - name: postgresdb-store
+              mountPath: /var/lib/postgresql/data
+          resources:
+            requests:
+              cpu: 100m
+              memory: 100Mi
+      volumes:
+        - name: postgresdb-store
+          persistentVolumeClaim:
+            claimName: postgres-pv-claim
+
