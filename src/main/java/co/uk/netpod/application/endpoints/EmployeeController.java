@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
-import java.util.concurrent.atomic.AtomicLong;
 import java.util.stream.Collectors;
 
 //@Component
@@ -45,8 +44,6 @@ public class EmployeeController {
     @Autowired
     private RestTemplate restTemplate;
 
-    private AtomicLong id = new AtomicLong(1);
-
     @GetMapping("/info")
     String home() {
         return "Hello World....- " + message + " " + appname + " file = " + product;
@@ -67,7 +64,6 @@ public class EmployeeController {
 
         MarketDate marketDate = forexMessage.getBody();
         log.info("marketDate = {}", marketDate);
-        employee.setId(id.incrementAndGet());
         employee.setPrice(marketDate.getPrice().toString());
         employee.setCurrency(marketDate.getPrice().keySet().stream().collect(Collectors.joining(",")));
         return employeeRepository.save(employee);

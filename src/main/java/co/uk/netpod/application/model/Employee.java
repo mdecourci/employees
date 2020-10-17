@@ -16,6 +16,14 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class Employee {
     @Id
+    @GeneratedValue(
+            strategy = GenerationType.SEQUENCE,
+            generator = "SEQ_GENERAL"
+    )
+    @SequenceGenerator(
+            name = "SEQ_GENERAL",
+            allocationSize = 1
+    )
     private Long id;
     @Column(name = "email")
     private String email;
